@@ -1,55 +1,85 @@
-   <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <body>
-        <style>
-            body {
-                background-color: rgb(54, 52, 158);
-            }
-            
-            h1 {
-                color: rgb(255, 0, 0);
-                text-align: center;
-            }
-            
-            h2 {
-                color: rgb(255, 0, 0);
-                text-align: center;
-            }
-            
-            h3 {
-                color: rgb(255, 0, 0);
-                text-align: center;
-                font-size: 18px;
-            }
-            
-            h4 {
-                color: rgb(255, 0, 0);
-                text-align: center;
-                font-size: 18px;
-            }
-            
-            a {
-                color: rgb(255, 255, 255);
-                text-decoration: none;
-                font-size: 24px;
-                padding: 10px 20px;
-                background-color: rgb(255, 0, 0);
-                border-radius: 5px;
-                display: inline-block;
-                margin-top: 20px;
-            }
-        </style>
-        <div style="text-align: center;">
-            <h1>Simple Website with A "DO NOT CLICK" BUTTON</h1>
-            <a href="https://i.pinimg.com/736x/07/d1/fd/07d1fd804cc19388a433be125034f109.jpg" class="cta-button">DO NOT CLICK!</a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DO NOT CLICK</title>
+</head>
 
+<body>
+    <style>
+        body {
+            background-color: rgb(54, 52, 158);
+        }
+        
+        p {
+            color: rgb(255, 0, 0);
+            text-align: center;
+            font-size: 24px;
+        }
+        
+        h2 {
+            color: rgb(255, 0, 0);
+            text-align: center;
+        }
+        
+        img {
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+        }
+        
+        a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            font-size: 24px;
+            padding: 10px 20px;
+            background-color: rgb(255, 0, 0);
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+    <div id="originalContent" style="text-align: center;">
+        <p>Simple Website with A "DO NOT CLICK" BUTTON</p>
+        <!-- The link the user clicks -->
+        <a href="https://i.pinimg.com/736x/07/d1/fd/07d1fd804cc19388a433be125034f109.jpg" id="myLink">DO NOT CLICK!</a>
+        <p>ABSOLUTELY DO NOT CLICK THE BUTTON ABOVE!</p>
+        <p style="color: rgb(255, 0, 0); text-align: center;">Seriously, it's not a good idea...</p>
+        <p style="color: rgb(255, 0, 0); text-align: center;">You have been warned!</p>
+    </div>
 
-    </body>
-    <h2>ABSOLUTELY DO NOT CLICK THE BUTTON ABOVE!</h2>
-    <h3 style="color: rgb(255, 0, 0); text-align: center;">Seriously, it's not a good idea...</h3>
-    <h4 style="color: rgb(255, 0, 0); text-align: center;">You have been warned!</h4>
-    <div style="text-align: center;">
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="cta-button">CLICK HERE FOR A SURPRISE!</a>
+    <!-- Put your specific words and photo inside this div -->
+    <div id="secretContent" style="display: none;">
 
-    </html>
+        <!-- 1. Put your words here -->
+        <h2>SEE I TOLD YOU DON'T CLICK IT!</h2>
+        <p>YOU DUMMY! HMMPH</p>
+
+        <!-- 2. Put your photo here -->
+        <img src="https://media.tenor.com/icCAaeNx5UAAAAAC/zasbaka.gif" alt="Description of photo" width="300">
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const myLink = document.getElementById("myLink");
+            const originalContent = document.getElementById("originalContent");
+            const secretContent = document.getElementById("secretContent");
+
+            // Check if they already clicked it
+            if (sessionStorage.getItem("linkClicked") === "true") {
+                if (originalContent) originalContent.style.display = "none";
+                if (secretContent) secretContent.style.display = "block";
+            }
+
+            // Listen for the click
+            if (myLink) {
+                myLink.addEventListener("click", function() {
+                    sessionStorage.setItem("linkClicked", "true");
+                });
+            }
+        });
+    </script>
+
+</html>
