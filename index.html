@@ -113,4 +113,41 @@
     });
   });
 </script>
+    <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const myLink = document.getElementById("myLink");
+    const originalContent = document.getElementById("originalContent");
+    const secretContent = document.getElementById("secretContent");
+    const backToMainBtn = document.getElementById("backToMainBtn"); // Find the new button
+
+    function revealSecretContent() {
+      if (sessionStorage.getItem("linkClicked") === "true") {
+        if (originalContent) originalContent.style.display = "none";
+        if (secretContent) secretContent.style.display = "block";
+      }
+    }
+
+    revealSecretContent();
+
+    if (myLink) {
+      myLink.addEventListener("click", function() {
+        sessionStorage.setItem("linkClicked", "true");
+      });
+    }
+
+    document.addEventListener("visibilitychange", function() {
+      if (document.visibilityState === "visible") {
+        revealSecretContent();
+      }
+    });
+
+    // RESET LOGIC: When they click the button, clear memory and reload
+    if (backToMainBtn) {
+      backToMainBtn.addEventListener("click", function() {
+        sessionStorage.removeItem("linkClicked"); // Erases the "clicked" memory
+        location.reload();                        // Reloads the page back to normal
+      });
+    }
+  });
+</script>
 </html>
