@@ -44,7 +44,7 @@
     <div id="originalContent" style="text-align: center;">
         <p>Simple Website with A "DO NOT CLICK" BUTTON</p>
         <!-- The link the user clicks -->
-        <a href="https://i.pinimg.com/736x/07/d1/fd/07d1fd804cc19388a433be125034f109.jpg" id="myLink">DO NOT CLICK!</a>
+        <a href="https://i.pinimg.com/736x/07/d1/fd/07d1fd804cc19388a433be125034f109.jpg" id="myLink" target="_blank">DO NOT CLICK!</a>
         <p>ABSOLUTELY DO NOT CLICK THE BUTTON ABOVE!</p>
         <p style="color: rgb(255, 0, 0); text-align: center;">Seriously, it's not a good idea...</p>
         <p style="color: rgb(255, 0, 0); text-align: center;">You have been warned!</p>
@@ -81,5 +81,36 @@
             }
         });
     </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const myLink = document.getElementById("myLink");
+    const originalContent = document.getElementById("originalContent");
+    const secretContent = document.getElementById("secretContent");
 
+    // Function that actually swaps the text
+    function revealSecretContent() {
+      if (sessionStorage.getItem("linkClicked") === "true") {
+        if (originalContent) originalContent.style.display = "none";
+        if (secretContent) secretContent.style.display = "block";
+      }
+    }
+
+    // 1. Check immediately when the page loads (for desktop/same tab)
+    revealSecretContent();
+
+    // 2. Listen for the click to set the flag
+    if (myLink) {
+      myLink.addEventListener("click", function() {
+        sessionStorage.setItem("linkClicked", "true");
+      });
+    }
+
+    // 3. MOBILE FIX: Check if the user switched back to this tab
+    document.addEventListener("visibilitychange", function() {
+      if (document.visibilityState === "visible") {
+        revealSecretContent(); // Run the check the moment they view the tab again
+      }
+    });
+  });
+</script>
 </html>
